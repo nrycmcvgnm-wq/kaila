@@ -3,118 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator</title>
+    <title>Kalkulator Sistem Bilangan</title>
 
     <style>
         body {
             font-family: Arial, sans-serif;
+            background: #eaf2f8;
             text-align: center;
-            margin-top: 50px;
-            background-color: #f2f2f2;
+            padding: 30px;
         }
 
-        .kalkulator {
-            width: 280px;
+        .container {
+            background: white;
+            max-width: 450px;
             margin: auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 0 10px gray;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px #aaa;
         }
 
-        input {
-            width: 95%;
-            height: 40px;
-            margin-bottom: 10px;
-            text-align: right;
-            font-size: 22px;
+        h2 {
+            color: #154360;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            font-size: 16px;
         }
 
         button {
-            width: 55px;
-            height: 45px;
-            margin: 3px;
-            font-size: 18px;
+            background: #2471a3;
+            color: white;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
+        }
+
+        button:hover {
+            background: #154360;
+        }
+
+        #hasil {
+            text-align: left;
+            background: #f4f6f7;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 5px;
+            overflow-wrap: anywhere;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="kalkulator">
-        <h2>Kalkulator</h2>
+<div class="container">
 
-        <input type="text" id="layar" readonly>
+    <h2>Kalkulator Sistem Bilangan</h2>
 
-        <br>
+    <p>Masukkan angka yang ingin dikonversi.</p>
 
-        <button onclick="hapus()">C</button>
-        <button onclick="tambahAngka('/')">/</button>
-        <button onclick="tambahAngka('*')">×</button>
-        <button onclick="hapusSatu()">⌫</button>
+    <input type="text" id="angka"
+           placeholder="Masukkan angka, contoh: 1010">
 
-        <br>
+    <label for="asal">Sistem bilangan asal:</label>
+    <select id="asal">
+        <option value="2">Biner (Basis 2)</option>
+        <option value="8">Oktal (Basis 8)</option>
+        <option value="10" selected>Desimal (Basis 10)</option>
+        <option value="16">Heksadesimal (Basis 16)</option>
+    </select>
 
-        <button onclick="tambahAngka('7')">7</button>
-        <button onclick="tambahAngka('8')">8</button>
-        <button onclick="tambahAngka('9')">9</button>
-        <button onclick="tambahAngka('-')">-</button>
+    <button onclick="konversi()">Konversi Bilangan</button>
 
-        <br>
-
-        <button onclick="tambahAngka('4')">4</button>
-        <button onclick="tambahAngka('5')">5</button>
-        <button onclick="tambahAngka('6')">6</button>
-        <button onclick="tambahAngka('+')">+</button>
-
-        <br>
-
-        <button onclick="tambahAngka('1')">1</button>
-        <button onclick="tambahAngka('2')">2</button>
-        <button onclick="tambahAngka('3')">3</button>
-        <button onclick="hitung()">=</button>
-
-        <br>
-
-        <button onclick="tambahAngka('0')">0</button>
-        <button onclick="tambahAngka('.')">.</button>
+    <div id="hasil">
+        <b>Hasil konversi akan muncul di sini.</b>
     </div>
 
-    <script>
-        function tambahAngka(nilai) {
-            document.getElementById("layar").value += nilai;
-        }
+</div>
 
-        function hapus() {
-            document.getElementById("layar").value = "";
-        }
+<script>
+function konversi() {
+    const angka = document.getElementById("angka")
+        .value.trim();
 
-        function hapusSatu() {
-            let layar = document.getElementById("layar");
-            layar.value = layar.value.slice(0, -1);
-        }
+    const asal = Number(
+        document.getElementById("asal").value
+    );
 
-        function hitung() {
-            let layar = document.getElementById("layar");
+    const hasil = document.getElementById("hasil");
 
-            try {
-                if (!/^[0-9+\-*/.() ]+$/.test(layar.value)) {
-                    throw new Error("Input tidak valid");
-                }
+    if (!angka) {
+        hasil.innerHTML = "Silakan masukkan angka terlebih dahulu.";
+        return;
+    }
 
-                let hasil = Function(
-                    '"use strict"; return (' + layar.value + ')'
-                )();
+    const digitValid = {
+        2: /^[01]+$/,
+        8: /^[0-7]+$/,
+        10: /^[0-9]+$/,
+        16: /^[0-9a-fA-F]+$/
+    };
 
-                layar.value = Number.isFinite(hasil)
-                    ? hasil
-                    : "Error";
-            } catch {
-                layar.value = "Error";
-            }
-        }
-    </script>
+    if (!digitValid[asal].test(angka)) {
+        hasil.innerHTML =
+            "Angka tidak valid untuk sistem bilangan yang dipilih.";
+        return;
+    }
+
+    const nilai = parseInt(angka, asal);
+
+    if (!Number.isSafeInteger(nilai)) {
+        hasil.innerHTML =
+            "Angka terlalu besar untuk dikonversi dengan tepat.";
+        return;
+    }
+
+    hasil.innerHTML = `
+        <h3>Hasil Konversi</h3>
+        <p>Biner (Basis 2): <b>${nilai.toString(2)}</b></p>
+        <p>Oktal (Basis 8): <b>${nilai.toString(8)}</b></p>
+        <p>Desimal (Basis 10): <b>${nilai.toString(10)}</b></p>
+        <p>Heksadesimal (Basis 16): <b>${nilai.toString(16).toUpperCase()}</b></p>
+    `;
+}
+</script>
 
 </body>
 </html>
