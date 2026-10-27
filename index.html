@@ -1,1 +1,120 @@
-Halo, saya kaila mahasiswa al ma'soem kelas karyawan
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #f2f2f2;
+        }
+
+        .kalkulator {
+            width: 280px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        input {
+            width: 95%;
+            height: 40px;
+            margin-bottom: 10px;
+            text-align: right;
+            font-size: 22px;
+        }
+
+        button {
+            width: 55px;
+            height: 45px;
+            margin: 3px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="kalkulator">
+        <h2>Kalkulator</h2>
+
+        <input type="text" id="layar" readonly>
+
+        <br>
+
+        <button onclick="hapus()">C</button>
+        <button onclick="tambahAngka('/')">/</button>
+        <button onclick="tambahAngka('*')">×</button>
+        <button onclick="hapusSatu()">⌫</button>
+
+        <br>
+
+        <button onclick="tambahAngka('7')">7</button>
+        <button onclick="tambahAngka('8')">8</button>
+        <button onclick="tambahAngka('9')">9</button>
+        <button onclick="tambahAngka('-')">-</button>
+
+        <br>
+
+        <button onclick="tambahAngka('4')">4</button>
+        <button onclick="tambahAngka('5')">5</button>
+        <button onclick="tambahAngka('6')">6</button>
+        <button onclick="tambahAngka('+')">+</button>
+
+        <br>
+
+        <button onclick="tambahAngka('1')">1</button>
+        <button onclick="tambahAngka('2')">2</button>
+        <button onclick="tambahAngka('3')">3</button>
+        <button onclick="hitung()">=</button>
+
+        <br>
+
+        <button onclick="tambahAngka('0')">0</button>
+        <button onclick="tambahAngka('.')">.</button>
+    </div>
+
+    <script>
+        function tambahAngka(nilai) {
+            document.getElementById("layar").value += nilai;
+        }
+
+        function hapus() {
+            document.getElementById("layar").value = "";
+        }
+
+        function hapusSatu() {
+            let layar = document.getElementById("layar");
+            layar.value = layar.value.slice(0, -1);
+        }
+
+        function hitung() {
+            let layar = document.getElementById("layar");
+
+            try {
+                if (!/^[0-9+\-*/.() ]+$/.test(layar.value)) {
+                    throw new Error("Input tidak valid");
+                }
+
+                let hasil = Function(
+                    '"use strict"; return (' + layar.value + ')'
+                )();
+
+                layar.value = Number.isFinite(hasil)
+                    ? hasil
+                    : "Error";
+            } catch {
+                layar.value = "Error";
+            }
+        }
+    </script>
+
+</body>
+</html>
