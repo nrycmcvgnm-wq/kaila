@@ -3,133 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator Sistem Bilangan</title>
-
+    <!-- Ganti NAMA dan NIM sesuai identitas Anda -->
+    <title>Nama Anda - NIM - Kalkulator Aritmatika Modular</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #eaf2f8;
-            text-align: center;
-            padding: 30px;
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #f4f6f9;
+            color: #333;
         }
-
         .container {
-            background: white;
-            max-width: 450px;
-            margin: auto;
+            background: #ffffff;
             padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px #aaa;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
         }
-
         h2 {
-            color: #154360;
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
         }
-
-        input, select, button {
+        .input-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="number"] {
             width: 100%;
-            padding: 12px;
-            margin: 8px 0;
+            padding: 10px;
             box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
             font-size: 16px;
         }
-
         button {
-            background: #2471a3;
+            background-color: #3498db;
             color: white;
             border: none;
-            border-radius: 5px;
+            padding: 12px 20px;
+            border-radius: 4px;
             cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background 0.3s;
         }
-
         button:hover {
-            background: #154360;
+            background-color: #2980b9;
         }
-
-        #hasil {
-            text-align: left;
-            background: #f4f6f7;
-            padding: 12px;
+        .result {
             margin-top: 15px;
-            border-radius: 5px;
-            overflow-wrap: anywhere;
+            padding: 12px;
+            border-radius: 4px;
+            background-color: #eef7fc;
+            border-left: 5px solid #3498db;
+            font-weight: bold;
+        }
+        .explanation {
+            font-size: 14px;
+            color: #555;
+            margin-top: 5px;
+            font-weight: normal;
         }
     </style>
 </head>
-
 <body>
 
-<div class="container">
-
-    <h2>Kalkulator Sistem Bilangan</h2>
-
-    <p>Masukkan angka yang ingin dikonversi.</p>
-
-    <input type="text" id="angka"
-           placeholder="Masukkan angka, contoh: 1010">
-
-    <label for="asal">Sistem bilangan asal:</label>
-    <select id="asal">
-        <option value="2">Biner (Basis 2)</option>
-        <option value="8">Oktal (Basis 8)</option>
-        <option value="10" selected>Desimal (Basis 10)</option>
-        <option value="16">Heksadesimal (Basis 16)</option>
-    </select>
-
-    <button onclick="konversi()">Konversi Bilangan</button>
-
-    <div id="hasil">
-        <b>Hasil konversi akan muncul di sini.</b>
+    <!-- SECTION 1: KALKULATOR MODULO BASIC -->
+    <div class="container">
+        <h2>Kalkulator Modulo Basic</h2>
+        <div class="input-group">
+            <label for="numA">Bilangan A:</label>
+            <input type="number" id="numA" placeholder="Contoh: 23">
+        </div>
+        <div class="input-group">
+            <label for="numM">Modulus (M):</label>
+            <input type="number" id="numM" placeholder="Contoh: 5">
+        </div>
+        <button onclick="hitungModulo()">Hitung Modulo</button>
+        <div id="resModulo" class="result" style="display:none;"></div>
     </div>
 
-</div>
+    <!-- SECTION 2: PENGECEK KONGRUENSI -->
+    <div class="container">
+        <h2>Pengecek Kongruensi Modular</h2>
+        <p style="font-size: 14px; color: #666;">Memeriksa apakah <strong>A ≡ B (mod M)</strong> bernilai True atau False.</p>
+        <div class="input-group">
+            <label for="congA">Nilai A:</label>
+            <input type="number" id="congA" placeholder="Contoh: 38">
+        </div>
+        <div class="input-group">
+            <label for="congB">Nilai B:</label>
+            <input type="number" id="congB" placeholder="Contoh: 14">
+        </div>
+        <div class="input-group">
+            <label for="congM">Modulus (M):</label>
+            <input type="number" id="congM" placeholder="Contoh: 12">
+        </div>
+        <button onclick="cekKongruensi()">Cek Kongruensi</button>
+        <div id="resKongruensi" class="result" style="display:none;"></div>
+    </div>
 
-<script>
-function konversi() {
-    const angka = document.getElementById("angka")
-        .value.trim();
+    <script>
+        // Fungsi pembantu untuk menangani modulo bilangan negatif dengan benar dalam JS
+        function mod(a, m) {
+            return ((a % m) + m) % m;
+        }
 
-    const asal = Number(
-        document.getElementById("asal").value
-    );
+        // 1. Logika Kalkulator Modulo Basic
+        function hitungModulo() {
+            const a = parseInt(document.getElementById('numA').value);
+            const m = parseInt(document.getElementById('numM').value);
+            const resDiv = document.getElementById('resModulo');
 
-    const hasil = document.getElementById("hasil");
+            if (isNaN(a) || isNaN(m) || m <= 0) {
+                resDiv.style.display = 'block';
+                resDiv.innerHTML = "Harap masukkan angka A dan Modulus M (> 0) yang valid!";
+                return;
+            }
 
-    if (!angka) {
-        hasil.innerHTML = "Silakan masukkan angka terlebih dahulu.";
-        return;
-    }
+            const hasil = mod(a, m);
+            resDiv.style.display = 'block';
+            resDiv.innerHTML = `Hasil: ${a} mod ${m} = <strong>${hasil}</strong>`;
+        }
 
-    const digitValid = {
-        2: /^[01]+$/,
-        8: /^[0-7]+$/,
-        10: /^[0-9]+$/,
-        16: /^[0-9a-fA-F]+$/
-    };
+        // 2. Logika Pengecek Kongruensi
+        function cekKongruensi() {
+            const a = parseInt(document.getElementById('congA').value);
+            const b = parseInt(document.getElementById('congB').value);
+            const m = parseInt(document.getElementById('congM').value);
+            const resDiv = document.getElementById('resKongruensi');
 
-    if (!digitValid[asal].test(angka)) {
-        hasil.innerHTML =
-            "Angka tidak valid untuk sistem bilangan yang dipilih.";
-        return;
-    }
+            if (isNaN(a) || isNaN(b) || isNaN(m) || m <= 0) {
+                resDiv.style.display = 'block';
+                resDiv.innerHTML = "Harap masukkan nilai A, B, dan Modulus M (> 0) yang valid!";
+                return;
+            }
 
-    const nilai = parseInt(angka, asal);
+            const modA = mod(a, m);
+            const modB = mod(b, m);
+            const isCongruent = (modA === modB);
+            const selisih = Math.abs(a - b);
 
-    if (!Number.isSafeInteger(nilai)) {
-        hasil.innerHTML =
-            "Angka terlalu besar untuk dikonversi dengan tepat.";
-        return;
-    }
-
-    hasil.innerHTML = `
-        <h3>Hasil Konversi</h3>
-        <p>Biner (Basis 2): <b>${nilai.toString(2)}</b></p>
-        <p>Oktal (Basis 8): <b>${nilai.toString(8)}</b></p>
-        <p>Desimal (Basis 10): <b>${nilai.toString(10)}</b></p>
-        <p>Heksadesimal (Basis 16): <b>${nilai.toString(16).toUpperCase()}</b></p>
-    `;
-}
-</script>
-
+            resDiv.style.display = 'block';
+            if (isCongruent) {
+                resDiv.innerHTML = `<span style="color: green;">BENAR (True)</span>: ${a} ≡ ${b} (mod ${m})
+                    <div class="explanation">Penjelasan: (${a} - ${b}) = ${a - b}, di mana ${selisih} habis dibagi ${m} (hasil: ${selisih / m}). Kedua bilangan memiliki sisa pembagian yang sama yaitu ${modA}.</div>`;
+            } else {
+                resDiv.innerHTML = `<span style="color: red;">SALAH (False)</span>: ${a} ≢ ${b} (mod ${m})
+                    <div class="explanation">Penjelasan: ${a} mod ${m} = ${modA}, sedangkan ${b} mod ${m} = ${modB}. Sisa pembagiannya tidak sama.</div>`;
+            }
+        }
+    </script>
 </body>
 </html>
