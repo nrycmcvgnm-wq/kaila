@@ -1,0 +1,759 @@
+
+/* =====================================
+   1. GLOBAL STYLE
+===================================== */
+
+:root {
+    --purple: #9b7acb;
+    --purple-dark: #7655a8;
+    --purple-light: #e9ddfa;
+    --lavender: #f5efff;
+    --pink: #f7e6f2;
+    --white: #ffffff;
+    --text: #51465f;
+    --muted: #8d819b;
+    --border: #e9def5;
+    --shadow: 0 10px 35px rgba(112, 79, 151, 0.10);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--text);
+    background: #fdfbff;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button, input, select {
+    font-family: inherit;
+}
+
+.section {
+    padding: 110px 9%;
+    scroll-margin-top: 75px;
+}
+
+/* =====================================
+   2. NAVIGATION BAR
+===================================== */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 18px 9%;
+    background: rgba(255,255,255,0.93);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    box-shadow: 0 3px 15px rgba(100,70,140,0.05);
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--purple-dark);
+}
+
+.logo span {
+    color: #c18acb;
+}
+
+.navbar nav {
+    display: flex;
+    gap: 35px;
+}
+
+.nav-link {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--muted);
+    transition: .3s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--purple-dark);
+}
+
+.menu-toggle {
+    display: none;
+    border: none;
+    background: none;
+    color: var(--purple-dark);
+    font-size: 25px;
+    cursor: pointer;
+}
+
+/* =====================================
+   3. HOME SECTION
+===================================== */
+
+.home {
+    min-height: 100vh;
+    padding-top: 145px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+    background: linear-gradient(130deg, #fbf8ff, #f3eaff, #fff8fc);
+}
+
+.home-content {
+    flex: 1;
+}
+
+.greeting {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 30px;
+    background: var(--white);
+    color: var(--purple-dark);
+    font-size: 12px;
+    margin-bottom: 25px;
+    box-shadow: var(--shadow);
+}
+
+.home h1 {
+    font-size: clamp(32px, 5vw, 55px);
+    line-height: 1.3;
+    margin-bottom: 10px;
+}
+
+.home h1 span,
+.section-heading h2 span {
+    color: var(--purple);
+}
+
+.home h2 {
+    font-size: 22px;
+    color: #b184c9;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.home-content > p {
+    max-width: 570px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 2;
+}
+
+.home-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn {
+    display: inline-block;
+    border: none;
+    border-radius: 12px;
+    padding: 13px 23px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.primary-btn,
+.calculate-btn {
+    background: var(--purple);
+    color: white;
+}
+
+.primary-btn:hover,
+.calculate-btn:hover {
+    background: var(--purple-dark);
+    transform: translateY(-3px);
+}
+
+.secondary-btn {
+    background: white;
+    color: var(--purple-dark);
+    border: 1px solid var(--border);
+}
+
+.secondary-btn:hover {
+    background: var(--purple-light);
+}
+
+.home-note {
+    margin-top: 35px;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.home-note span {
+    color: #d18bbf;
+}
+
+/* Home decoration */
+
+.home-decoration {
+    flex: 1;
+    min-height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.profile-placeholder {
+    width: 280px;
+    height: 330px;
+    border-radius: 150px 150px 35px 35px;
+    background: linear-gradient(145deg, #d8c3f1, #f7ddec);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--shadow);
+    position: relative;
+    z-index: 2;
+}
+
+.profile-placeholder span {
+    font-size: 70px;
+    color: white;
+}
+
+.profile-placeholder h3 {
+    color: white;
+    font-size: 22px;
+}
+
+.profile-placeholder p {
+    color: white;
+    font-size: 12px;
+}
+
+.decorative-stars {
+    margin-top: 20px;
+    color: white;
+}
+
+.circle {
+    position: absolute;
+    border-radius: 50%;
+}
+
+.circle-one {
+    width: 330px;
+    height: 330px;
+    background: #e9ddfa;
+    top: 10px;
+    right: 0;
+}
+
+.circle-two {
+    width: 100px;
+    height: 100px;
+    background: #f5ddeb;
+    bottom: 0;
+    left: 5%;
+}
+
+/* =====================================
+   4. SECTION HEADING
+===================================== */
+
+.section-heading {
+    text-align: center;
+    margin-bottom: 55px;
+}
+
+.small-title {
+    font-size: 11px;
+    letter-spacing: 3px;
+    font-weight: 600;
+    color: #b18bcb;
+}
+
+.section-heading h2 {
+    font-size: 36px;
+    margin: 12px 0;
+}
+
+.section-heading > p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.heading-decoration {
+    margin-top: 15px;
+    color: #c7a8df;
+}
+
+/* =====================================
+   5. ABOUT SECTION
+===================================== */
+
+.about {
+    background: white;
+}
+
+.about-container {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+.about-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.about-photo {
+    width: 280px;
+    height: 340px;
+    border-radius: 25px;
+    background: linear-gradient(145deg, #e6d6f7, #f8e4f1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--shadow);
+}
+
+.about-photo span {
+    font-size: 65px;
+    color: white;
+}
+
+.about-photo p {
+    color: white;
+    font-size: 14px;
+}
+
+.about-content {
+    flex: 1.5;
+}
+
+.about-content h3 {
+    font-size: 23px;
+    margin-bottom: 15px;
+}
+
+.about-content > p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 2;
+    margin-bottom: 25px;
+}
+
+.biodata-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.biodata-item {
+    background: var(--lavender);
+    border-radius: 12px;
+    padding: 15px;
+}
+
+.biodata-item span {
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 5px;
+}
+
+.biodata-item strong {
+    font-size: 12px;
+    color: var(--purple-dark);
+}
+
+/* =====================================
+   6. PROJECT SECTION
+===================================== */
+
+.project {
+    background: linear-gradient(160deg, #fbf8ff, #f7f0ff, #fff8fc);
+}
+
+.project-subtitle {
+    color: var(--purple-dark) !important;
+    font-weight: 500;
+    margin-top: 8px;
+}
+
+.project-intro {
+    max-width: 680px;
+    text-align: center;
+    margin: 0 auto 45px;
+}
+
+.project-intro h3 {
+    font-size: 23px;
+    margin-bottom: 10px;
+}
+
+.project-intro p {
+    font-size: 13px;
+    line-height: 1.9;
+    color: var(--muted);
+}
+
+/* Calculator cards */
+
+.calculator-card {
+    max-width: 750px;
+    margin: 0 auto 30px;
+    padding: 32px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    box-shadow: var(--shadow);
+    transition: .3s;
+}
+
+.calculator-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 40px rgba(112,79,151,.15);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.level-badge {
+    background: var(--purple-light);
+    color: var(--purple-dark);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 8px 14px;
+    border-radius: 20px;
+}
+
+.level-icon {
+    font-size: 27px;
+    color: #b18bcb;
+}
+
+.calculator-card h3 {
+    font-size: 21px;
+    margin-bottom: 8px;
+}
+
+.card-description {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 23px;
+}
+
+.input-group {
+    margin-bottom: 17px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #fcfaff;
+    color: var(--text);
+    outline: none;
+    font-size: 13px;
+    transition: .3s;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(155,122,203,.12);
+}
+
+.calculate-btn {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.result-box {
+    display: none;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 12px;
+    background: var(--lavender);
+    border-left: 4px solid var(--purple);
+    font-size: 13px;
+    line-height: 2;
+    overflow-wrap: anywhere;
+}
+
+.result-box.show {
+    display: block;
+    animation: fadeIn .3s ease;
+}
+
+.result-box strong {
+    color: var(--purple-dark);
+}
+
+.result-box .success {
+    color: #438d70;
+    font-weight: 700;
+}
+
+.result-box .error {
+    color: #c05c78;
+    font-weight: 700;
+}
+
+.result-box hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 10px 0;
+}
+
+.project-footer {
+    text-align: center;
+    margin-top: 55px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.project-footer span {
+    display: inline-block;
+    color: #c69ad8;
+    margin: 10px;
+}
+
+/* =====================================
+   7. FOOTER
+===================================== */
+
+.footer {
+    background: #e9def8;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.footer h3 {
+    color: var(--purple-dark);
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.footer p {
+    font-size: 12px;
+    color: #88769c;
+    line-height: 2;
+}
+
+.copyright {
+    margin-top: 10px;
+}
+
+/* =====================================
+   8. ANIMATION
+===================================== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =====================================
+   9. RESPONSIVE DESIGN
+===================================== */
+
+@media (max-width: 900px) {
+    .section {
+        padding: 100px 6%;
+    }
+
+    .home {
+        gap: 20px;
+    }
+
+    .profile-placeholder {
+        width: 230px;
+        height: 290px;
+    }
+
+    .about-container {
+        gap: 30px;
+    }
+}
+
+@media (max-width: 700px) {
+    .navbar {
+        padding: 15px 6%;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .navbar nav {
+        position: absolute;
+        top: 65px;
+        left: 0;
+        width: 100%;
+        background: white;
+        display: none;
+        flex-direction: column;
+        gap: 0;
+        padding: 10px 6%;
+        box-shadow: var(--shadow);
+    }
+
+    .navbar nav.show {
+        display: flex;
+    }
+
+    .nav-link {
+        padding: 14px 0;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .home {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 130px;
+    }
+
+    .home-content > p {
+        margin: auto;
+    }
+
+    .home-buttons {
+        justify-content: center;
+    }
+
+    .home-decoration {
+        width: 100%;
+        min-height: 330px;
+    }
+
+    .circle-one {
+        right: 50%;
+        transform: translateX(50%);
+    }
+
+    .about-container {
+        flex-direction: column;
+    }
+
+    .about-content {
+        width: 100%;
+    }
+
+    .section-heading h2 {
+        font-size: 29px;
+    }
+
+    .calculator-card {
+        padding: 23px;
+    }
+}
+
+@media (max-width: 420px) {
+    .section {
+        padding: 90px 5%;
+    }
+
+    .home h1 {
+        font-size: 34px;
+    }
+
+    .home h2 {
+        font-size: 18px;
+    }
+
+    .biodata-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .calculator-card h3 {
+        font-size: 18px;
+    }
+
+    .about-photo {
+        width: 240px;
+        height: 290px;
+    }
+}
+
+
+/* =====================================
+   FOTO SECTION HOME
+===================================== */
+
+.home-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: inherit;
+    display: block;
+}
+
+/* =====================================
+   FOTO SECTION ABOUT ME
+===================================== */
+
+.about-photo {
+    overflow: hidden;
+    position: relative;
+}
+
+.about-real-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: inherit;
+    display: block;
+}
+
+/* RESPONSIVE FOTO */
+@media (max-width: 700px) {
+    .profile-placeholder {
+        width: 230px;
+        height: 290px;
+    }
+
+    .about-photo {
+        width: 240px;
+        height: 290px;
+    }
+}
